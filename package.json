@@ -1,6 +1,6 @@
 {
   "name": "vegeta",
-  "version": "1.0.0",
+  "version": "12.11.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lord-of-dock/vegeta.git"

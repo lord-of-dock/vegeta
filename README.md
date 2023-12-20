@@ -8,6 +8,7 @@
 [![docker image size](https://img.shields.io/docker/image-size/sinlov/vegeta)](https://hub.docker.com/r/sinlov/vegeta)
 [![docker pulls](https://img.shields.io/docker/pulls/sinlov/vegeta)](https://hub.docker.com/r/sinlov/vegeta/tags?page=1&ordering=last_updated)
 
+- for [tsenart/vegeta](https://github.com/tsenart/vegeta)
 - docker hub see [https://hub.docker.com/r/sinlov/vegeta](https://hub.docker.com/r/sinlov/vegeta)
 
 ## usage
@@ -17,6 +18,8 @@ To display help:
 ```bash
 $ docker run --rm -i sinlov/vegeta --help
 ```
+
+For full documentation see [vegeta](https://github.com/tsenart/vegeta)
 
 Example:
 
@@ -32,6 +35,17 @@ $ sudo curl -L --fail https://raw.githubusercontent.com/lord-of-dock/vegeta/main
 $ sudo chmod +x /usr/local/bin/vegeta
 # then check
 $ vegeta --help
+```
+
+Usage in Kubernetes:
+
+```bash
+# To display help
+$ kubectl run vegeta --rm --attach --restart=Never --image="sinlov/vegeta" -- --help
+
+# test some url
+$ kubectl run vegeta --rm --attach --restart=Never --image="sinlov/vegeta" -- sh -c \
+"echo 'GET https://www.example.com' | vegeta attack -rate=10 -duration=30s | tee results.bin | vegeta report"
 ```
 
 ## source repo

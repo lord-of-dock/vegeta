@@ -34,13 +34,15 @@ ARG GO_ENV_ROOT_BUILD_BIN_PATH=${GO_ENV_ROOT_BUILD_BIN_NAME}
 
 ARG GO_PATH_SOURCE_DIR=/go/src
 
-#RUN apk --no-cache add \
-#  ca-certificates mailcap curl \
-#  && rm -rf /var/cache/apk/* /tmp/*
+RUN apk --no-cache add \
+ ca-certificates mailcap curl jq  \
+ && apk add --no-cache --virtual .build-deps \
+    openssl \
+ && rm -rf /var/cache/apk/* /tmp/*
 
 RUN mkdir /app
 WORKDIR /app
 
-COPY --from=builder ${GO_PATH_SOURCE_DIR}/${GO_ENV_PACKAGE_NAME}/${GO_ENV_ROOT_BUILD_BIN_PATH} .
-ENTRYPOINT [ "/app/vegeta" ]
-# CMD ["/app/vegeta", "--help"]
+COPY --from=builder ${GO_PATH_SOURCE_DIR}/${GO_ENV_PACKAGE_NAME}/${GO_ENV_ROOT_BUILD_BIN_PATH} /bin/
+ENTRYPOINT [ "vegeta" ]
+# CMD ["/bin/vegeta", "--help"]
